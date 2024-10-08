@@ -1,0 +1,12 @@
+{% extends 'base/main.html' %} {% block content %}
+<h1>Register</h1>
+<div>
+    <form class="d-flex flex-column" method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" value="Register">Submit</button>
+</form>
+</div>
+
+<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock content %}

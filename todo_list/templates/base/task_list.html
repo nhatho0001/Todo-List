@@ -1,0 +1,47 @@
+{% extends 'base/main.html' %} {% block content %}
+
+<div class="container">
+   <h1 class="lobster-regular" style="text-transform: capitalize;"> Hello : {{ request.user }} </h1>
+    <h3><a href="{%  url 'create_task' %}"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+      </svg></a>
+    </h3>
+    <form class="py-2" method="GET" action="" style="display: flex;">
+        {% csrf_token %}
+        <input class="search" type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
+    </form>
+    <div class="task-area">
+        {% for task in tasks %}
+            {% if task.complete %}
+            <div class="d-flex justify-content-start align-items-baseline item-tasks">
+                <div class="task-complte me-3">
+                </div>
+                <s><i><a href="{% url 'Edit_task' task.id%}" style="color: black; text-decoration-line: none;">{{task.title}}</a></i></s>
+                <div class="ms-auto">
+                    <a href="{% url 'Delete_task' task.id %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="d-flex justify-content-start align-items-baseline item-tasks">
+                <div class="task-imcomplete me-3"></div>
+                <a href="{% url 'Edit_task' task.id%}" style="color: black; text-decoration-line: none;;">{{task.title}}</a>
+                <div class="ms-auto">
+                    <a href="{% url 'Delete_task' task.id %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
+
+
